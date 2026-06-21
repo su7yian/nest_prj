@@ -1,12 +1,6 @@
 
-.prettierrc
-/tsconfig.json
-/tsconfig.build.json
-/src/generated/prisma
-*.json
+x
 .env
-*.mjs
-
 # compiled output
 /dist
 /node_modules

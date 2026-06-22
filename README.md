@@ -1,3 +1,4 @@
+npm i class-validator class-transformer
 
 
 ```bash

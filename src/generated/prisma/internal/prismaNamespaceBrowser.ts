@@ -90,7 +90,8 @@ export const BookmarkScalarFieldEnum = {
   updatedAt: 'updatedAt',
   title: 'title',
   description: 'description',
-  link: 'link'
+  link: 'link',
+  userid: 'userid'
 } as const
 
 export type BookmarkScalarFieldEnum = (typeof BookmarkScalarFieldEnum)[keyof typeof BookmarkScalarFieldEnum]

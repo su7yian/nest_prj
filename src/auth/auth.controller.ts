@@ -8,11 +8,10 @@ export class AuthController {
   constructor(private authService: AuthService) { } // weak relation aggregation, pointing our data member authservice of auth controller class to Auth service imported
   @Post('signup') // decoators can also take params that are passed to modifer function's wrapper that are created later.
   signup(@Body() dto: AuthDto) {
-    console.log(dto);
-    return this.authService.signup();
+    return this.authService.signup(dto);
   }
   @Post('signin') // auth/signin
-  signin() {
-    return this.authService.signin();
+  signin(@Body() dto: AuthDto) {
+    return this.authService.signin(dto);
   }
 }

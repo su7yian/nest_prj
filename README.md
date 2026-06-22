@@ -1,4 +1,6 @@
 npm i class-validator class-transformer
+npm add argon2
+npm i @nestjs/config otherwise .env will be unreadable hence nest will fialt ot conenct to db.
 
 
 ```bash

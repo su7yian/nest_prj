@@ -9,3 +9,8 @@ export class AuthDto {
   @IsNotEmpty()
   password: string;
 }
+
+export interface JwtPayload {
+  sub: number;
+  email: string;
+}

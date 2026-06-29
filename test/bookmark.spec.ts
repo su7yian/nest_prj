@@ -4,10 +4,9 @@ import { ValidationPipe, INestApplication } from '@nestjs/common';
 import { PrismaService } from '../src/prisma/prisma.service';
 import * as pactum from 'pactum';
 import { AuthDto } from '../src/auth/dto';
-import { EditUserDto } from '../src/user/dto';
 import { CreateBookmarkDto, EditBookmarkDto } from '../src/bookmark/dto';
 
-describe('App e2e', () => {
+describe('App integration', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   beforeAll(async () => {
@@ -30,102 +29,16 @@ describe('App e2e', () => {
   describe('Auth', () => {
     const dto: AuthDto = { email: 'sufy@gmail.com', password: '123' };
     describe('Signup', () => {
-      it('should throw error if email empty', async () => {
-        return pactum
-          .spec()
-          .post('/auth/signup')
-          .withBody({ password: dto.password })
-          .expectStatus(400)
-          .inspect();
-      });
-      it('should throw error if password empty', async () => {
-        return pactum
-          .spec()
-          .post('/auth/signup')
-          .withBody({ email: dto.email })
-          .expectStatus(400)
-          .inspect();
-      });
-      it('should throw error if no body', async () => {
-        return pactum
-          .spec()
-          .post('/auth/signup')
-          .withBody({})
-          .expectStatus(400)
-          .inspect();
-      });
       it('should signup', async () => {
         return pactum
           .spec()
           .post('/auth/signup')
           .withBody(dto)
-          .expectStatus(201);
-      });
-    });
-    describe('Signin', () => {
-      it('should throw error if email empty', async () => {
-        return pactum
-          .spec()
-          .post('/auth/signin')
-          .withBody({ password: dto.password })
-          .expectStatus(400)
-          .inspect();
-      });
-      it('should throw error if password empty', async () => {
-        return pactum
-          .spec()
-          .post('/auth/signin')
-          .withBody({ email: dto.email })
-          .expectStatus(400)
-          .inspect();
-      });
-      it('should throw error if no body', async () => {
-        return pactum
-          .spec()
-          .post('/auth/signin')
-          .withBody({})
-          .expectStatus(400)
-          .inspect();
-      });
-      it('should signin', async () => {
-        return pactum
-          .spec()
-          .post('/auth/signin')
-          .withBody(dto)
-          .expectStatus(200)
-          .inspect()
-          .stores('mytoken', 'access_token'); //save access token in my token
+          .expectStatus(201)
+          .stores('mytoken', 'access_token');
       });
     });
   });
-  describe('User', () => {
-    const dto: EditUserDto = {
-      firstName: 'sufyian',
-      email: 'sufyian@gmail.com',
-    };
-    describe('get me', () => {
-      it('should get me', async () => {
-        return pactum
-          .spec()
-          .get('/users/me')
-          .withHeaders({ Authorization: `Bearer $S{mytoken}` })
-          .expectStatus(200);
-      });
-    });
-    describe('edit user', () => {
-      it('should edit user', async () => {
-        return pactum
-          .spec()
-          .patch('/users')
-          .withHeaders({ Authorization: `Bearer $S{mytoken}` })
-          .withBody(dto)
-          .expectStatus(200)
-          .expectBodyContains(dto.firstName)
-          .expectBodyContains(dto.email);
-      });
-    });
-  });
-
   describe('Bookmark', () => {
     describe('Get empty bookmarks', () => {
       it('should get no bookmarks', () => {

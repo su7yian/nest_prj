@@ -25,8 +25,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "pretest:e2e": "npm run test:db:restart",
-    "test:e2e": "dotenv -e .env.test -- jest --watch --config ./test/jest-e2e.json --runInBand"
+    "pretest:int": "npm run test:db:restart",
+    "test:int": "dotenv -e .env.test -- jest --config ./test/jest-integration.json --runInBand"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
